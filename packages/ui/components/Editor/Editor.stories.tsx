@@ -11,7 +11,7 @@ export const Default = () => {
 
   return (
     <div>
-      <Editor onChange={handleDocChange} value={doc} />
+      <Editor setEditorContent={setDoc} initialContent={doc} />
     </div>
   );
 };

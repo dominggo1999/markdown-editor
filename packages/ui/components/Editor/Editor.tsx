@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { bracketMatching } from "@codemirror/language";
 import { languages } from "@codemirror/language-data";
@@ -17,16 +17,24 @@ export const themeOverwrite = EditorView.theme({
 });
 
 export interface EditorProps {
-  onChange: (doc: string) => void;
-  value: string;
+  setEditorContent: (doc: string) => void;
+  initialContent: string;
   className?: string;
 }
 
-const Editor: React.FC<EditorProps> = ({ onChange, value, className }) => {
+const Editor: React.FC<EditorProps> = ({
+  setEditorContent,
+  initialContent,
+  className,
+}) => {
+  const onEditorChange = useCallback((value: string) => {
+    setEditorContent(value);
+  }, []);
+
   return (
     <CodeMirror
       className={className}
-      value={value}
+      value={initialContent}
       extensions={[
         bracketMatching(),
         markdown({
@@ -39,9 +47,9 @@ const Editor: React.FC<EditorProps> = ({ onChange, value, className }) => {
       ]}
       height="100%"
       theme={vscodeDark}
-      onChange={onChange}
+      onChange={onEditorChange}
     />
   );
 };
 
-export default Editor;
+export default memo(Editor);

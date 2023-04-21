@@ -1,4 +1,4 @@
-import React, { type Dispatch, type SetStateAction } from "react";
+import React, { memo } from "react";
 import clsx from "clsx";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -10,15 +10,11 @@ import { Checkbox } from "../Checkbox";
 export interface PreviewMarkdownProps {
   children: string;
   className?: string;
-  updateMarkdown: Dispatch<SetStateAction<string>>;
 }
-
-const generateCheckbox = (checked: boolean) => (checked ? "- [x]" : "- [ ]");
 
 const PreviewMarkdown: React.FC<PreviewMarkdownProps> = ({
   children,
   className,
-  updateMarkdown,
 }) => {
   return (
     <ReactMarkdown
@@ -44,27 +40,9 @@ const PreviewMarkdown: React.FC<PreviewMarkdownProps> = ({
         },
         li({ node, checked, children: liChildren, className, ...props }) {
           if (checked !== null && checked !== undefined) {
-            const handleChange = () => {
-              const lines = children.split("\n");
-              const lineIndex = node.position?.start.line;
-
-              if (typeof lineIndex === "number") {
-                const newLineValue = lines[lineIndex - 1]?.replace(
-                  generateCheckbox(checked),
-                  generateCheckbox(!checked),
-                );
-
-                lines[lineIndex - 1] = newLineValue || "";
-
-                updateMarkdown(lines.join("\n"));
-              }
-            };
-
             return (
               <li {...props} className={clsx(className, "flex gap-x-3")}>
-                <Checkbox onChange={handleChange} isSelected={checked}>
-                  {liChildren.slice(1)}
-                </Checkbox>
+                <Checkbox isSelected={checked}>{liChildren.slice(1)}</Checkbox>
               </li>
             );
           }
@@ -82,4 +60,4 @@ const PreviewMarkdown: React.FC<PreviewMarkdownProps> = ({
   );
 };
 
-export default PreviewMarkdown;
+export default memo(PreviewMarkdown);
