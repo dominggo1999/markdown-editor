@@ -1,50 +1,34 @@
 {
-  "name": "markdown-editor",
+  "name": "turbo-t3-antd-template",
   "private": true,
-  "packageManager": "pnpm@7.13.0",
+  "packageManager": "pnpm@8.5.1",
   "scripts": {
     "build": "turbo build",
     "clean": "rm -rf node_modules",
     "clean:workspaces": "turbo clean",
-    "db:generate": "turbo db:generate",
-    "db:push": "turbo db:push db:generate",
     "dev": "turbo dev --parallel",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "lint": "turbo lint",
     "FIXME:lint": "turbo lint && manypkg check",
     "test": "turbo test",
     "type-check": "turbo type-check",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "npx lint-staged",
+    "lint": "rome check .",
+    "lint:apply": "rome check --apply .",
+    "format": "rome format .",
+    "format:fix": "rome format --write ."
   },
   "dependencies": {
-    "@acme/eslint-config": "^0.1.0",
     "@manypkg/cli": "^0.19.2",
-    "@types/eslint": "^8.4.10",
-    "@typescript-eslint/eslint-plugin": "^5.46.0",
-    "@typescript-eslint/parser": "^5.46.0",
-    "eslint": "^8.30.0",
-    "eslint-config-prettier": "^8.6.0",
-    "prettier": "^2.8.1",
-    "prettier-plugin-tailwindcss": "^0.2.1",
-    "turbo": "^1.6.3",
-    "typescript": "^4.9.4"
+    "turbo": "^1.9.4",
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
-    "cypress": "^12.7.0",
+    "cypress": "^12.12.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.0"
+    "lint-staged": "^13.2.2",
+    "rome": "^12.1.2"
   },
   "lint-staged": {
-    "apps/**/*.{js,ts,jsx,tsx}": [
-      "eslint --fix"
-    ],
-    "packages/**/*.{js,ts,jsx,tsx}": [
-      "eslint --fix"
-    ],
-    "*.json": [
-      "prettier --write"
-    ]
+    "**/*.{js,ts,jsx,tsx}": ["rome check --apply .", "rome format --write ."]
   }
 }

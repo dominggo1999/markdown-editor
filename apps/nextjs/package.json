@@ -44,7 +44,6 @@
     "zustand": "^4.3.3"
   },
   "devDependencies": {
-    "@acme/eslint-config": "*",
     "@types/node": "^18.15.10",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
@@ -52,8 +51,6 @@
     "babel-loader": "^9.1.2",
     "cypress": "^12.10.0",
     "dotenv-cli": "^7.2.1",
-    "eslint": "^8.30.0",
-    "eslint-config-next": "^13.1.1",
     "postcss": "^8.4.19",
     "pwa-asset-generator": "^6.2.1",
     "react-router-dom": "^6.8.2",

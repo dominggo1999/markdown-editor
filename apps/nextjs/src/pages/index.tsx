@@ -17,6 +17,7 @@ const PostCard: React.FC<{
         <p className="mt-2 text-sm">{post.content}</p>
       </div>
       <div>
+        {/* rome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
         <span
           className="cursor-pointer text-sm font-bold uppercase text-primary-500"
           onClick={onPostDelete}
